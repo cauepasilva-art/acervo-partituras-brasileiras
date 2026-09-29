@@ -1,65 +1,155 @@
 <?php
+
 require_once __DIR__ . '/../includes/functions.php';
-require_once __DIR__ . '/../login/verifica_user.php';
+
+$resultados = [];
+
+$termo = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['termo'])) {
+
+    $termo = trim($_GET['termo']);
+
+    if ($termo !== '') {
+
+        $sql = "SELECT *
+                FROM partituras
+                WHERE titulo ILIKE :termo
+                   OR compositor ILIKE :termo
+                ORDER BY titulo ASC";
+
+        $stmt = $conexao->prepare($sql);
+
+        $busca = '%' . $termo . '%';
+
+        $stmt->bindParam(':termo', $busca);
+
+        $stmt->execute();
+
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Buscar Partituras</title>
+
     <link rel="stylesheet" href="../style/style.css">
-    <title>Consulta de Partitura</title>
+
 </head>
 
 <body>
 
-    <?php include '../includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
 
-    <h3>Consulta de Partitura</h3>
+<main>
 
-    <form action="" method="post">
+    <h1>Buscar Partituras</h1>
 
-        <label for="id">Partitura ID</label>
-        <input type="text" name="id" id="id" required>
+    <form method="GET" action="">
 
-        <input type="submit" value="Consultar">
+        <label for="termo">
+            Título ou compositor:
+        </label>
+
+        <input
+            type="text"
+            name="termo"
+            id="termo"
+            value="<?= htmlspecialchars($termo) ?>"
+            placeholder="Digite o título ou compositor"
+        >
+
+        <input
+            type="submit"
+            value="Pesquisar"
+        >
 
     </form>
 
-    <?php
+    <hr>
 
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    <?php if ($termo !== ''): ?>
 
-        $partitura = consultar($conexao, $_POST['id']);
+        <h2>
+            Resultados para:
+            <?= htmlspecialchars($termo) ?>
+        </h2>
 
-        if ($partitura) {
+        <?php if (count($resultados) > 0): ?>
 
-            echo "<hr>";
-            echo "ID: " . $partitura['id'] . "<br>";
-            echo "Título: " . $partitura['titulo'] . "<br>";
-            echo "Compositor: " . $partitura['compositor'] . "<br>";
-            echo "Ano: " . $partitura['ano_composicao'] . "<br>";
-            echo "Gênero: " . $partitura['genero'] . "<br>";
-            echo "Instrumentação: " . $partitura['instrumentacao'] . "<br>";
-            echo "Tonalidade: " . $partitura['tonalidade'] . "<br>";
-            echo "Descrição: " . $partitura['descricao'] . "<br>";
-            echo "Fonte / Procedência: " . $partitura['fonte_procedencia'] . "<br>";
-            echo "Situação dos direitos: " . $partitura['situacao_direitos'] . "<br>";
-            echo "Titular da licença: " . $partitura['titular_licenca'] . "<br>";
-            echo "Visível: " . ($partitura['visivel'] ? 'Sim' : 'Não') . "<br>";
+            <?php foreach ($resultados as $partitura): ?>
 
-        } else {
+                <div>
 
-            echo "Partitura não encontrada.";
+                    <h3>
+                        <?= htmlspecialchars($partitura['titulo']) ?>
+                    </h3>
 
-        }
-    }
+                    <p>
+                        <strong>Compositor:</strong>
+                        <?= htmlspecialchars($partitura['compositor']) ?>
+                    </p>
 
-    include '../includes/footer.php';
+                    <p>
+                        <strong>Ano:</strong>
+                        <?= htmlspecialchars($partitura['ano_composicao'] ?? '') ?>
+                    </p>
 
-    ?>
+                    <p>
+                        <strong>Gênero:</strong>
+                        <?= htmlspecialchars($partitura['genero']) ?>
+                    </p>
+
+                    <p>
+                        <a href="/app/detalhe.php?id=<?= $partitura['id'] ?>">
+                            Ver detalhes
+                        </a>
+
+                        |
+
+                        <a
+                            href="/app/download.php?id=<?= $partitura['id'] ?>"
+                            target="_blank"
+                        >
+                            Abrir PDF
+                        </a>
+                    </p>
+
+                </div>
+
+                <hr>
+
+            <?php endforeach; ?>
+
+        <?php else: ?>
+
+            <p>
+                Nenhuma partitura encontrada.
+            </p>
+
+        <?php endif; ?>
+
+    <?php else: ?>
+
+        <p>
+            Digite um título ou compositor para realizar a pesquisa.
+        </p>
+
+    <?php endif; ?>
+
+</main>
+
+<?php include '../includes/footer.php'; ?>
 
 </body>
 
