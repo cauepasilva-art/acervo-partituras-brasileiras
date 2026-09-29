@@ -123,34 +123,41 @@ function listar($conexao)
 
         echo "<hr>";
 
-        echo "ID: {$partitura['id']} <br>";
-        echo "Título: {$partitura['titulo']} <br>";
-        echo "Compositor: {$partitura['compositor']} <br>";
-        echo "Ano: {$partitura['ano_composicao']} <br>";
-        echo "Gênero: {$partitura['genero']} <br>";
-        echo "Instrumentação: {$partitura['instrumentacao']} <br>";
-        echo "Tonalidade: {$partitura['tonalidade']} <br>";
-        echo "Descrição: {$partitura['descricao']} <br>";
-        echo "Fonte/Procedência: {$partitura['fonte_procedencia']} <br>";
-        echo "Situação dos direitos: {$partitura['situacao_direitos']} <br>";
-        echo "Titular da licença: {$partitura['titular_licenca']} <br>";
+        echo "ID: " . htmlspecialchars($partitura['id']) . "<br>";
+        echo "Título: " . htmlspecialchars($partitura['titulo']) . "<br>";
+        echo "Compositor: " . htmlspecialchars($partitura['compositor']) . "<br>";
+        echo "Ano: " . htmlspecialchars($partitura['ano_composicao'] ?? '') . "<br>";
+        echo "Gênero: " . htmlspecialchars($partitura['genero']) . "<br>";
+        echo "Instrumentação: " . htmlspecialchars($partitura['instrumentacao']) . "<br>";
+        echo "Tonalidade: " . htmlspecialchars($partitura['tonalidade']) . "<br>";
+        echo "Descrição: " . htmlspecialchars($partitura['descricao']) . "<br>";
+        echo "Fonte/Procedência: " . htmlspecialchars($partitura['fonte_procedencia']) . "<br>";
+        echo "Situação dos direitos: " . htmlspecialchars($partitura['situacao_direitos']) . "<br>";
+        echo "Titular da licença: " . htmlspecialchars($partitura['titular_licenca']) . "<br>";
 
-        echo "Arquivo original: {$partitura['nome_arquivo_original']} <br>";
-        echo "Tipo do arquivo: {$partitura['mime_type']} <br>";
-        echo "Tamanho: {$partitura['tamanho_bytes']} bytes <br>";
-        echo "Caminho: {$partitura['caminho_arquivo']} <br>";
+        echo "Arquivo original: " . htmlspecialchars($partitura['nome_arquivo_original']) . "<br>";
+        echo "Tipo do arquivo: " . htmlspecialchars($partitura['mime_type']) . "<br>";
+        echo "Tamanho: " . htmlspecialchars($partitura['tamanho_bytes']) . " bytes<br>";
 
         echo "Visível: " .
             ($partitura['visivel'] ? 'Sim' : 'Não') .
             "<br>";
-            
+
+        echo "<br>";
+
+        echo '<a href="/app/detalhe.php?id=' . $partitura['id'] . '">
+                Ver detalhes
+              </a>';
+
+        echo " | ";
+
         echo '<a href="/app/download.php?id=' . $partitura['id'] . '" target="_blank">
-        Abrir PDF
-      </a><br>';
+                Abrir PDF
+              </a>';
+
+        echo "<br>";
     }
 }
-
-
 // =====================================================
 // CONSULTAR PARTITURA POR ID
 // =====================================================
