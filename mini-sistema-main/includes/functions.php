@@ -29,6 +29,7 @@ function cadastrar(
     $mime_type,
     $tamanho_bytes
 ) {
+
     $sql = "INSERT INTO partituras (
                 titulo,
                 compositor,
@@ -99,7 +100,9 @@ function deletar($conexao, $id)
     $sql = "DELETE FROM partituras WHERE id = :id";
 
     $stmt = $conexao->prepare($sql);
+
     $stmt->bindParam(':id', $id);
+
     $stmt->execute();
 
     echo "Registro deletado.";
@@ -112,52 +115,85 @@ function deletar($conexao, $id)
 
 function listar($conexao)
 {
-    $sql = "SELECT * FROM partituras ORDER BY id DESC";
+    // Busca somente as informações principais.
+    // Os outros dados ficam disponíveis na página de detalhes.
+    $sql = "SELECT
+                id,
+                titulo,
+                compositor,
+                ano_composicao
+            FROM partituras
+            ORDER BY titulo ASC";
 
     $stmt = $conexao->prepare($sql);
+
     $stmt->execute();
 
     $partituras = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+    // Verifica se existem partituras cadastradas.
+    if (count($partituras) === 0) {
+
+        echo "<p>Nenhuma partitura cadastrada.</p>";
+
+        return;
+    }
+
+
+    // Percorre todas as partituras encontradas.
     foreach ($partituras as $partitura) {
 
-        echo "<hr>";
+        echo "<div class='partitura-item'>";
 
-        echo "ID: " . htmlspecialchars($partitura['id']) . "<br>";
-        echo "Título: " . htmlspecialchars($partitura['titulo']) . "<br>";
-        echo "Compositor: " . htmlspecialchars($partitura['compositor']) . "<br>";
-        echo "Ano: " . htmlspecialchars($partitura['ano_composicao'] ?? '') . "<br>";
-        echo "Gênero: " . htmlspecialchars($partitura['genero']) . "<br>";
-        echo "Instrumentação: " . htmlspecialchars($partitura['instrumentacao']) . "<br>";
-        echo "Tonalidade: " . htmlspecialchars($partitura['tonalidade']) . "<br>";
-        echo "Descrição: " . htmlspecialchars($partitura['descricao']) . "<br>";
-        echo "Fonte/Procedência: " . htmlspecialchars($partitura['fonte_procedencia']) . "<br>";
-        echo "Situação dos direitos: " . htmlspecialchars($partitura['situacao_direitos']) . "<br>";
-        echo "Titular da licença: " . htmlspecialchars($partitura['titular_licenca']) . "<br>";
 
-        echo "Arquivo original: " . htmlspecialchars($partitura['nome_arquivo_original']) . "<br>";
-        echo "Tipo do arquivo: " . htmlspecialchars($partitura['mime_type']) . "<br>";
-        echo "Tamanho: " . htmlspecialchars($partitura['tamanho_bytes']) . " bytes<br>";
+        // Mostra o título da partitura.
+        echo "<h2>" .
+            htmlspecialchars($partitura['titulo']) .
+            "</h2>";
 
-        echo "Visível: " .
-            ($partitura['visivel'] ? 'Sim' : 'Não') .
-            "<br>";
 
-        echo "<br>";
+        // Mostra o compositor.
+        echo "<p><strong>Compositor:</strong> " .
+            htmlspecialchars($partitura['compositor']) .
+            "</p>";
 
-        echo '<a href="/app/detalhe.php?id=' . $partitura['id'] . '">
-                Ver detalhes
-              </a>';
+
+        // Mostra o ano somente se ele estiver preenchido.
+        if ($partitura['ano_composicao'] !== null) {
+
+            echo "<p><strong>Ano:</strong> " .
+                htmlspecialchars($partitura['ano_composicao']) .
+                "</p>";
+        }
+
+
+        // Link para visualizar todos os detalhes.
+        echo '<a href="/app/detalhe.php?id=' .
+            $partitura['id'] .
+            '">
+            Ver detalhes
+        </a>';
+
 
         echo " | ";
 
-        echo '<a href="/app/download.php?id=' . $partitura['id'] . '" target="_blank">
-                Abrir PDF
-              </a>';
 
-        echo "<br>";
+        // Link para abrir o PDF.
+        echo '<a href="/app/download.php?id=' .
+            $partitura['id'] .
+            '" target="_blank">
+            Abrir PDF
+        </a>';
+
+
+        echo "</div>";
+
+        echo "<hr>";
     }
 }
+
+
 // =====================================================
 // CONSULTAR PARTITURA POR ID
 // =====================================================
@@ -171,6 +207,7 @@ function consultar($conexao, $id)
     $stmt = $conexao->prepare($sql);
 
     $stmt->bindParam(':id', $id);
+
     $stmt->execute();
 
     $partitura = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -198,6 +235,7 @@ function atualizar(
     $titular_licenca,
     $visivel
 ) {
+
     $sql = "UPDATE partituras SET
                 titulo = :titulo,
                 compositor = :compositor,
@@ -238,10 +276,16 @@ function atualizar(
 
 function cadastrar_user($conexao, $email, $senha)
 {
+    // Cria um hash seguro da senha.
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO usuarios (email, senha_hash)
-            VALUES (:email, :senha_hash)";
+    $sql = "INSERT INTO usuarios (
+                email,
+                senha_hash
+            ) VALUES (
+                :email,
+                :senha_hash
+            )";
 
     $stmt = $conexao->prepare($sql);
 
@@ -260,13 +304,17 @@ function cadastrar_user($conexao, $email, $senha)
 
 function consulta_user($conexao, $email)
 {
-    $sql = "SELECT id, email, senha_hash
+    $sql = "SELECT
+                id,
+                email,
+                senha_hash
             FROM usuarios
             WHERE email = :email";
 
     $stmt = $conexao->prepare($sql);
 
     $stmt->bindParam(':email', $email);
+
     $stmt->execute();
 
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);

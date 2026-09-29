@@ -1,37 +1,41 @@
 <?php
+
 require_once __DIR__ . '/../includes/functions.php';
-require_once __DIR__ . '/../login/verifica_user.php';
+
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lista de Partituras</title>
+
     <link rel="stylesheet" href="../style/style.css">
-    <title>Partituras</title>
+
 </head>
 
 <body>
 
-    <?php include '../includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
 
-    <main>
+<main>
 
-        <div style="width: 50%; margin:auto; text-align:center; border:1px solid black; border-radius:5px;">
+    <h1>Lista de Partituras</h1>
 
-            <h3>Lista completa de partituras</h3>
+    <p>
+        Confira as partituras cadastradas no acervo.
+    </p>
 
-            <?php
-            listar($conexao);
-            ?>
+    <?php listar($conexao); ?>
 
-        </div>
+</main>
 
-    </main>
-
-    <?php include '../includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>
 
 </body>
 
