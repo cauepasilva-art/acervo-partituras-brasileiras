@@ -1,3 +1,339 @@
-body{
+/* =====================================================
+   BOTÕES DE AÇÃO
+   ===================================================== */
+
+.partitura-item a,
+main > a {
+    display: inline-block;
+    padding: 9px 14px;
+    margin-top: 5px;
+    background-color: #0e3da2;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.partitura-item a:hover,
+main > a:hover {
+    background-color: #144a8a;
+}
+
+
+/* =====================================================
+   CONFIGURAÇÕES GERAIS
+   ===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #222;
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+header {
+    background-color: #222;
+    color: white;
+    padding: 20px;
     text-align: center;
+}
+
+header h1 {
+    margin: 0 0 15px;
+    font-size: 28px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+nav a:hover {
+    background-color: #444;
+}
+
+
+/* =====================================================
+   CONTEÚDO PRINCIPAL
+   ===================================================== */
+
+main {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+main h1 {
+    margin-top: 0;
+}
+
+
+/* =====================================================
+   FORMULÁRIOS
+   ===================================================== */
+
+form {
+    max-width: 700px;
+    margin: 20px auto;
+    text-align: left;
+}
+
+label {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+
+/* =====================================================
+   BOTÕES
+   ===================================================== */
+
+button,
+input[type="submit"],
+input[type="reset"] {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    opacity: 0.85;
+}
+
+
+/* =====================================================
+   LINKS
+   ===================================================== */
+
+a {
+    color: #1a5fb4;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+
+/* =====================================================
+   LISTA DE PARTITURAS
+   ===================================================== */
+
+.partitura-item {
+    text-align: left;
+    padding: 20px;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.partitura-item h2 {
+    margin-top: 0;
+}
+
+.partitura-item p {
+    margin: 8px 0;
+}
+
+
+/* =====================================================
+   RODAPÉ
+   ===================================================== */
+
+footer {
+    margin-top: 30px;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+}
+
+
+/* =====================================================
+   MENSAGENS E TEXTOS DOS FORMULÁRIOS
+   ===================================================== */
+
+form p {
+    margin: 10px 0;
+}
+
+form small {
+    display: block;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+
+/* =====================================================
+   CHECKBOX
+   ===================================================== */
+
+input[type="checkbox"] {
+    width: auto;
+    margin-right: 5px;
+}
+
+
+/* =====================================================
+   ÁREA DE PESQUISA
+   ===================================================== */
+
+input[name="termo"] {
+    margin-bottom: 15px;
+}
+
+
+/* =====================================================
+   CAMPOS EM FOCO
+   ===================================================== */
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #1a5fb4;
+    box-shadow: 0 0 4px rgba(26, 95, 180, 0.3);
+}
+
+
+/* =====================================================
+   DETALHES DA PARTITURA
+   ===================================================== */
+
+.detalhe-partitura {
+    text-align: left;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.detalhe-partitura p {
+    padding: 10px 0;
+    margin: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.detalhe-partitura p:last-child {
+    border-bottom: none;
+}
+
+
+/* =====================================================
+   AÇÕES DA PÁGINA DE DETALHES
+   ===================================================== */
+
+.acoes-detalhe {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.acoes-detalhe a {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: #0e3da2;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.acoes-detalhe a:hover {
+    background-color: #144a8a;
+}
+
+/* =====================================================
+   RESPONSIVIDADE
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 22px;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    nav a {
+        display: block;
+    }
+
+    main {
+        width: 95%;
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .partitura-item {
+        padding: 15px;
+    }
+
+    .detalhe-partitura {
+        padding: 15px;
+    }
+
+    .acoes-detalhe {
+        flex-direction: column;
+    }
+
+    .acoes-detalhe a {
+        text-align: center;
+    }
 }
