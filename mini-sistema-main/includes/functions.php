@@ -115,8 +115,6 @@ function deletar($conexao, $id)
 
 function listar($conexao)
 {
-    // Busca somente as informações principais.
-    // Os outros dados ficam disponíveis na página de detalhes.
     $sql = "SELECT
                 id,
                 titulo,
@@ -126,69 +124,56 @@ function listar($conexao)
             ORDER BY titulo ASC";
 
     $stmt = $conexao->prepare($sql);
-
     $stmt->execute();
 
     $partituras = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-    // Verifica se existem partituras cadastradas.
     if (count($partituras) === 0) {
-
         echo "<p>Nenhuma partitura cadastrada.</p>";
-
         return;
     }
 
-
-    // Percorre todas as partituras encontradas.
     foreach ($partituras as $partitura) {
 
         echo "<div class='partitura-item'>";
 
+        echo "<div class='partitura-preview'>";
+        echo '<iframe src="/app/download.php?id=' .
+            $partitura['id'] .
+            '" title="Prévia do PDF"></iframe>';
+        echo "</div>";
 
-        // Mostra o título da partitura.
+        echo "<div class='partitura-info'>";
+
         echo "<h2>" .
             htmlspecialchars($partitura['titulo']) .
             "</h2>";
 
-
-        // Mostra o compositor.
         echo "<p><strong>Compositor:</strong> " .
             htmlspecialchars($partitura['compositor']) .
             "</p>";
 
-
-        // Mostra o ano somente se ele estiver preenchido.
         if ($partitura['ano_composicao'] !== null) {
-
             echo "<p><strong>Ano:</strong> " .
                 htmlspecialchars($partitura['ano_composicao']) .
                 "</p>";
         }
 
+        echo '<div class="partitura-acoes">';
 
-        // Link para visualizar todos os detalhes.
         echo '<a href="/app/detalhe.php?id=' .
             $partitura['id'] .
-            '">
-            Ver detalhes
-        </a>';
+            '">Ver detalhes</a>';
 
-
-        echo " | ";
-
-
-        // Link para abrir o PDF.
         echo '<a href="/app/download.php?id=' .
             $partitura['id'] .
-            '" target="_blank">
-            Abrir PDF
-        </a>';
-
+            '" target="_blank">Abrir PDF</a>';
 
         echo "</div>";
 
+        echo "</div>";
+
+        echo "</div>";
         echo "<hr>";
     }
 }

@@ -48,6 +48,14 @@ if (!$partitura) {
 
     <!-- Caixa com as informações da partitura -->
     <div class="detalhe-partitura">
+        <div class="detalhe-preview">
+
+    <iframe
+        src="/app/download.php?id=<?= $partitura['id'] ?>"
+        title="Prévia do PDF">
+    </iframe>
+
+</div>
 
         <p>
             <strong>ID:</strong>

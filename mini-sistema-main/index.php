@@ -37,7 +37,7 @@
         </p>
 
         <p>
-            <a href="./app/select_where.php">Consultar partitura por ID</a>
+            <a href="./app/select_where.php">Pesquisar partitura</a>
         </p>
 
         <p>
