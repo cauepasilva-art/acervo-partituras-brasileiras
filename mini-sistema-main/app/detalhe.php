@@ -1,4 +1,3 @@
-```php
 <?php
 
 // Inclui as funções do sistema e a conexão com o banco de dados.
