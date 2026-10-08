@@ -27,26 +27,19 @@
         <p>
             Aqui você pode cadastrar, consultar, atualizar e excluir partituras.
         </p>
+        <div class="botoes-inicio">
 
-        <p>
-            <a href="./app/create.php">Cadastrar partitura</a>
-        </p>
+            <a href="/app/create.php">Cadastrar partitura</a>
 
-        <p>
-            <a href="./app/select.php">Ver partituras</a>
-        </p>
+            <a href="/app/select.php">Ver partituras</a>
 
-        <p>
-            <a href="./app/select_where.php">Pesquisar partitura</a>
-        </p>
+            <a href="/app/select_where.php">Pesquisar partitura</a>
 
-        <p>
-            <a href="./app/update.php">Atualizar partitura</a>
-        </p>
+            <a href="/app/update.php">Atualizar partitura</a>
 
-        <p>
-            <a href="./app/delete.php">Excluir partitura</a>
-        </p>
+            <a href="/app/delete.php">Excluir partitura</a>
+
+        </div>
 
     </main>
 

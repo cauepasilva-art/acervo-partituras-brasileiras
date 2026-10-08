@@ -166,9 +166,12 @@ a:hover {
    ===================================================== */
 
 .partitura-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
     text-align: left;
     padding: 20px;
-    margin: 15px 0;
+    margin: 15px 0 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #fafafa;
@@ -184,14 +187,66 @@ a:hover {
 
 
 /* =====================================================
+   PRÉVIA DO PDF NAS LISTAS
+   ===================================================== */
+
+.partitura-preview {
+    width: 180px;
+    height: 240px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f4f4f4;
+}
+
+.partitura-preview iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.partitura-info {
+    flex: 1;
+}
+
+.partitura-info h2 {
+    margin-top: 0;
+}
+
+.partitura-acoes {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.partitura-acoes a {
+    display: inline-block;
+    padding: 8px 14px;
+    text-decoration: none;
+}
+
+
+/* =====================================================
    RODAPÉ
    ===================================================== */
 
 footer {
-    margin-top: 30px;
-    padding: 20px;
+    margin-top: 40px;
+    padding: 25px 20px;
     text-align: center;
-    color: #666;
+    background-color: #f2f2f2;
+    border-top: 1px solid #ddd;
+    color: #555;
+}
+
+footer p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+footer p:first-child {
+    font-weight: bold;
 }
 
 
@@ -268,6 +323,28 @@ select:focus {
 
 
 /* =====================================================
+   PRÉVIA DO PDF NA PÁGINA DE DETALHES
+   ===================================================== */
+
+.detalhe-preview {
+    width: 100%;
+    max-width: 600px;
+    height: 700px;
+    margin: 0 auto 30px auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f4f4f4;
+}
+
+.detalhe-preview iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+/* =====================================================
    AÇÕES DA PÁGINA DE DETALHES
    ===================================================== */
 
@@ -291,6 +368,36 @@ select:focus {
 .acoes-detalhe a:hover {
     background-color: #144a8a;
 }
+
+
+/* =====================================================
+   BOTÕES DA PÁGINA INICIAL
+   ===================================================== */
+
+.botoes-inicio {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.botoes-inicio a {
+    display: inline-block;
+    padding: 9px 15px;
+    background-color: #222;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.botoes-inicio a:hover {
+    background-color: #444;
+    transform: translateY(-2px);
+}
+
 
 /* =====================================================
    RESPONSIVIDADE
@@ -322,94 +429,8 @@ select:focus {
     }
 
     .partitura-item {
-        padding: 15px;
-    }
-
-    .detalhe-partitura {
-        padding: 15px;
-    }
-
-    .acoes-detalhe {
         flex-direction: column;
-    }
-
-    .acoes-detalhe a {
-        text-align: center;
-    }
-}
-
-/* Prévia do PDF nas listas */
-
-.partitura-item {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    margin-bottom: 20px;
-    padding: 20px;
-}
-
-.partitura-preview {
-    width: 180px;
-    height: 240px;
-    flex-shrink: 0;
-    overflow: hidden;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #f4f4f4;
-}
-
-.partitura-preview iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-.partitura-info {
-    flex: 1;
-}
-
-.partitura-info h2 {
-    margin-top: 0;
-}
-
-.partitura-acoes {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.partitura-acoes a {
-    display: inline-block;
-    padding: 8px 14px;
-    text-decoration: none;
-}
-
-/* Prévia do PDF na página de detalhes */
-
-.detalhe-preview {
-    width: 100%;
-    max-width: 600px;
-    height: 700px;
-    margin: 0 auto 30px auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #f4f4f4;
-}
-
-.detalhe-preview iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-
-/* Responsividade */
-
-@media (max-width: 600px) {
-
-    .partitura-item {
-        flex-direction: column;
+        padding: 15px;
     }
 
     .partitura-preview {
@@ -425,26 +446,27 @@ select:focus {
         text-align: center;
     }
 
+    .detalhe-partitura {
+        padding: 15px;
+    }
+
     .detalhe-preview {
         height: 500px;
     }
-}
-/* Footer */
 
-footer {
-    margin-top: 40px;
-    padding: 25px 20px;
-    text-align: center;
-    background-color: #f2f2f2;
-    border-top: 1px solid #ddd;
-    color: #555;
-}
+    .acoes-detalhe {
+        flex-direction: column;
+    }
 
-footer p {
-    margin: 5px 0;
-    font-size: 14px;
-}
+    .acoes-detalhe a {
+        text-align: center;
+    }
 
-footer p:first-child {
-    font-weight: bold;
+    .botoes-inicio {
+        flex-direction: column;
+    }
+
+    .botoes-inicio a {
+        text-align: center;
+    }
 }
