@@ -5,7 +5,7 @@
 $host = "192.168.10.15";
 $dbname = "acervo";
 $user = "postgres";
-$pass = "123456";
+$pass = "curry";
 try {
 
     $conexao = new PDO(

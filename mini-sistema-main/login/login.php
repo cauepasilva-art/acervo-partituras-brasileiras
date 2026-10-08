@@ -42,6 +42,11 @@ session_start();
 
             <input type="submit" value="Entrar">
 
+            <p>
+        Não possui uma conta?
+        <a href="/login/cadastrar.php">Cadastre-se</a>
+    </p>
+
         </form>
 
         <?php
