@@ -39,7 +39,7 @@ if ($termo !== '') {
 
     <title>Pesquisar Partituras</title>
 
-    <link rel="stylesheet" href="/acervo-partituras-brasilerias/mini-sistema-main/style/style.css">
+    <link rel="stylesheet" href="../style/style.css">
 </head>
 
 <body>

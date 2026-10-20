@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <link
         rel="stylesheet"
-        href="/acervo-partituras-brasilerias/mini-sistema-main/style/style.css"
+        href="../style/style.css"
     >
 
     <title>Excluir Partitura</title>

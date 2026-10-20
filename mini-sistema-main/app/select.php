@@ -15,7 +15,7 @@ require_once __DIR__ . '/../includes/functions.php';
 
     <title>Lista de Partituras</title>
 
-    <link rel="stylesheet" href="/acervo-partituras-brasilerias/mini-sistema-main/style/style.css">
+    <link rel="stylesheet" href="../style/style.css">
 
 </head>
 

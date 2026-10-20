@@ -8,7 +8,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/acervo-partituras-brasilerias/mini-sistema-main/style/style.css">
+    <link rel="stylesheet" href="../style/style.css">
 
     <title>Acervo Digital de Partituras Brasileiras</title>
 
