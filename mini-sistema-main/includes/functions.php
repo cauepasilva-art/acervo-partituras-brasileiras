@@ -138,7 +138,7 @@ function listar($conexao)
         echo "<div class='partitura-item'>";
 
         echo "<div class='partitura-preview'>";
-        echo '<iframe src="/app/download.php?id=' .
+        echo '<iframe src="/acervo-partituras-brasileiras/mini-sistema-main/app/download.php?id=' .
             $partitura['id'] .
             '" title="Prévia do PDF"></iframe>';
         echo "</div>";
