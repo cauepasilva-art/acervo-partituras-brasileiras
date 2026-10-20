@@ -161,11 +161,11 @@ function listar($conexao)
 
         echo '<div class="partitura-acoes">';
 
-        echo '<a href="/app/detalhe.php?id=' .
+        echo '<a href="/acervo-partituras-brasilerias/mini-sistema-main/app/detalhe.php?id=' .
             $partitura['id'] .
             '">Ver detalhes</a>';
 
-        echo '<a href="/app/download.php?id=' .
+        echo '<a href="/acervo-partituras-brasilerias/mini-sistema-main/app/download.php?id=' .
             $partitura['id'] .
             '" target="_blank">Abrir PDF</a>';
 

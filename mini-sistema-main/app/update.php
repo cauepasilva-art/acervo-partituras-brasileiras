@@ -410,7 +410,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br>
 
 
-        <a href="/app/update.php">
+        <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/update.php">
             Escolher outra partitura
         </a>
 

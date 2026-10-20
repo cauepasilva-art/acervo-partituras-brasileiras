@@ -119,12 +119,12 @@ if ($termo !== '') {
 
                         <div class="partitura-acoes">
 
-                            <a href="/app/detalhe.php?id=<?= $partitura['id'] ?>">
+                            <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/detalhe.php?id=<?= $partitura['id'] ?>">
                                 Ver detalhes
                             </a>
 
                             <a
-                                href="/app/download.php?id=<?= $partitura['id'] ?>"
+                                href="/acervo-partituras-brasilerias/mini-sistema-main/app/download.php?id=<?= $partitura['id'] ?>"
                                 target="_blank">
                                 Abrir PDF
                             </a>

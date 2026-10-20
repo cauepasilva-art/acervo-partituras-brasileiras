@@ -143,7 +143,7 @@ if (!$partitura) {
             Abrir PDF
         </a>
 
-        <a href="/app/select.php">
+        <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/select.php">
             Voltar para a lista
         </a>
 

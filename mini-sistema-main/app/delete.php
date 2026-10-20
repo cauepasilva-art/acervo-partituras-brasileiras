@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br>
 
 
-        <a href="/app/delete.php">
+        <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/delete.php">
             Não, voltar
         </a>
 
@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <br>
 
 
-    <a href="/app/select.php">
+    <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/select.php">
         Consultar partituras
     </a>
 

@@ -3,12 +3,12 @@
     <h1>Acervo Digital de Partituras Brasileiras</h1>
 
     <nav>
-        <a href="/">Início</a>
-        <a href="/app/create.php">Cadastrar</a>
-        <a href="/app/select.php">Acervo</a>
-        <a href="/app/select_where.php">Pesquisar</a>
-        <a href="/login/login.php">Entrar</a>
-        <a href="/login/logout.php">Sair</a>
+        <a href="/acervo-partituras-brasilerias/mini-sistema-main/">Início</a>
+        <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/create.php">Cadastrar</a>
+        <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/select.php">Acervo</a>
+        <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/select_where.php">Pesquisar</a>
+        <a href="/acervo-partituras-brasilerias/mini-sistema-main/login/login.php">Entrar</a>
+        <a href="/acervo-partituras-brasilerias/mini-sistema-main/login/logout.php">Sair</a>
     </nav>
 
 </header>
