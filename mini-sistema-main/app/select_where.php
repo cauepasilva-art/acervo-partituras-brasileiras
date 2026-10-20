@@ -119,7 +119,7 @@ if ($termo !== '') {
 
                         <div class="partitura-acoes">
 
-                            <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/detalhe.php?id=<?= $partitura['id'] ?>">
+                            <a href="/acervo-partituras-brasileiras/mini-sistema-main/app/detalhe.php?id=<?= $partitura['id'] ?>">
                                 Ver detalhes
                             </a>
 

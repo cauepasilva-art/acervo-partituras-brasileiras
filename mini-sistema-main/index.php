@@ -29,15 +29,15 @@
         </p>
         <div class="botoes-inicio">
 
-            <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/create.php">Cadastrar partitura</a>
+            <a href="/acervo-partituras-brasileiras/mini-sistema-main/app/create.php">Cadastrar partitura</a>
 
-            <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/select.php">Ver partituras</a>
+            <a href="/acervo-partituras-brasileiras/mini-sistema-main/app/select.php">Ver partituras</a>
 
-            <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/select_where.php">Pesquisar partitura</a>
+            <a href="/acervo-partituras-brasileiras/mini-sistema-main/app/select_where.php">Pesquisar partitura</a>
 
-            <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/update.php">Atualizar partitura</a>
+            <a href="/acervo-partituras-brasileiras/mini-sistema-main/app/update.php">Atualizar partitura</a>
 
-            <a href="/acervo-partituras-brasilerias/mini-sistema-main/app/delete.php">Excluir partitura</a>
+            <a href="/acervo-partituras-brasileiras/mini-sistema-main/app/delete.php">Excluir partitura</a>
 
         </div>
 
