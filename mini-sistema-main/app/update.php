@@ -3,6 +3,12 @@
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../login/verifica_user.php';
 
+if (empty($_SESSION['eh_admin'])) {
+    http_response_code(403);
+    exit('Acesso negado.');
+}
+
+
 $mensagem = '';
 $partitura = null;
 

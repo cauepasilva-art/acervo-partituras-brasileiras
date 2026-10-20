@@ -287,24 +287,23 @@ function cadastrar_user($conexao, $email, $senha)
 // CONSULTAR USUÁRIO
 // =====================================================
 
+
 function consulta_user($conexao, $email)
 {
     $sql = "SELECT
                 id,
                 email,
-                senha_hash
+                senha_hash,
+                eh_admin
             FROM usuarios
             WHERE email = :email";
 
     $stmt = $conexao->prepare($sql);
-
     $stmt->bindParam(':email', $email);
-
     $stmt->execute();
 
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
     return $usuario;
 }
-
 ?>
