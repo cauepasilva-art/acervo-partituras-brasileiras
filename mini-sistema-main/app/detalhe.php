@@ -33,7 +33,7 @@ if (!$partitura) {
     <title>Detalhes da Partitura</title>
 
     <!-- Arquivo de estilos do sistema -->
-    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="/acervo-partituras-brasilerias/mini-sistema-main/style/style.css">
 
 </head>
 

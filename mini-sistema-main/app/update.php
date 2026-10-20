@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
         // Redireciona para os detalhes da partitura.
-        header('Location: /app/detalhe.php?id=' . $id);
+        header('Location: /acervo-partituras-brasilerias/mini-sistema-main/app/detalhe.php?id=' . $id);
         exit;
     }
 
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <link
         rel="stylesheet"
-        href="../style/style.css"
+        href="/acervo-partituras-brasilerias/mini-sistema-main/style/style.css"
     >
 
     <title>Atualizar Partitura</title>
