@@ -50,7 +50,7 @@ if (!$partitura) {
         <div class="detalhe-preview">
 
     <iframe
-        src="/app/download.php?id=<?= $partitura['id'] ?>"
+        src="/acervo-partituras-brasileiras/mini-sistema-main/app/download.php?id=<?= $partitura['id'] ?>"
         title="Prévia do PDF">
     </iframe>
 
