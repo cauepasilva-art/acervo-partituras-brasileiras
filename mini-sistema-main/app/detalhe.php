@@ -137,7 +137,7 @@ if (!$partitura) {
     <div class="acoes-detalhe">
 
         <a
-            href="/app/download.php?id=<?= $partitura['id'] ?>"
+            href="/acervo-partituras-brasileiras/mini-sistema-main/app/download.php?id=<?= $partitura['id'] ?>"
             target="_blank"
         >
             Abrir PDF
