@@ -1,23 +1,21 @@
 /* =====================================================
-   BOTÕES DE AÇÃO
+   ACERVO DIGITAL DE PARTITURAS BRASILEIRAS
+   Paleta: azul-marinho, azul profundo e azul-gelo
    ===================================================== */
 
-.partitura-item a,
-main > a {
-    display: inline-block;
-    padding: 9px 14px;
-    margin-top: 5px;
-    background-color: #0e3da2;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
+:root {
+    --azul-marinho: #102A43;
+    --azul-profundo: #1D4E89;
+    --azul-medio: #2875B8;
+    --azul-gelo: #D9EAF7;
+    --fundo: #F4F7FB;
+    --branco: #FFFFFF;
+    --texto: #243447;
+    --texto-suave: #526579;
+    --borda: #D9E2EC;
+    --sombra: 0 4px 16px rgba(16, 42, 67, 0.08);
+    --sombra-hover: 0 8px 22px rgba(16, 42, 67, 0.13);
 }
-
-.partitura-item a:hover,
-main > a:hover {
-    background-color: #144a8a;
-}
-
 
 /* =====================================================
    CONFIGURAÇÕES GERAIS
@@ -27,83 +25,142 @@ main > a:hover {
     box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #222;
+html {
+    scroll-behavior: smooth;
 }
 
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--fundo);
+    color: var(--texto);
+    line-height: 1.6;
+}
+
+img,
+iframe {
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3 {
+    color: var(--azul-marinho);
+    line-height: 1.3;
+}
+
+p {
+    overflow-wrap: break-word;
+}
 
 /* =====================================================
-   HEADER
+   CABEÇALHO
    ===================================================== */
 
 header {
-    background-color: #222;
-    color: white;
-    padding: 20px;
+    background: linear-gradient(
+        135deg,
+        var(--azul-marinho),
+        var(--azul-profundo)
+    );
+    color: var(--branco);
+    padding: 25px 20px;
     text-align: center;
+    box-shadow: 0 3px 12px rgba(16, 42, 67, 0.16);
 }
 
 header h1 {
-    margin: 0 0 15px;
-    font-size: 28px;
+    color: var(--branco);
+    margin: 0 0 18px;
+    font-size: clamp(22px, 4vw, 30px);
+    letter-spacing: 0.3px;
 }
+
+/* =====================================================
+   MENU DE NAVEGAÇÃO
+   ===================================================== */
 
 nav {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
 }
 
 nav a {
-    color: white;
+    color: var(--branco);
     text-decoration: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 9px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 nav a:hover {
-    background-color: #444;
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
 }
-
 
 /* =====================================================
    CONTEÚDO PRINCIPAL
    ===================================================== */
 
 main {
-    width: 90%;
-    max-width: 1000px;
-    margin: 30px auto;
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 92%;
+    max-width: 1100px;
+    margin: 32px auto;
+    padding: 32px;
+    background-color: var(--branco);
+    border: 1px solid rgba(217, 226, 236, 0.8);
+    border-radius: 12px;
+    box-shadow: var(--sombra);
 }
 
-main h1 {
+main > h1:first-child {
     margin-top: 0;
 }
 
+main h1 {
+    font-size: clamp(24px, 3vw, 30px);
+    margin-bottom: 20px;
+}
+
+main h2 {
+    font-size: 21px;
+}
+
+/* =====================================================
+   LINKS
+   ===================================================== */
+
+a {
+    color: var(--azul-profundo);
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--azul-medio);
+}
 
 /* =====================================================
    FORMULÁRIOS
    ===================================================== */
 
 form {
-    max-width: 700px;
-    margin: 20px auto;
+    width: 100%;
+    max-width: 720px;
+    margin: 22px auto;
     text-align: left;
 }
 
 label {
     display: inline-block;
     margin-top: 10px;
-    margin-bottom: 5px;
-    font-weight: bold;
+    margin-bottom: 6px;
+    color: var(--azul-marinho);
+    font-weight: 600;
 }
 
 input[type="text"],
@@ -111,21 +168,42 @@ input[type="number"],
 input[type="email"],
 input[type="password"],
 input[type="file"],
+input[type="search"],
 textarea,
 select {
+    display: block;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    min-height: 42px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    border: 1px solid var(--borda);
+    border-radius: 7px;
+    background-color: var(--branco);
+    color: var(--texto);
+    font-family: inherit;
     font-size: 15px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 textarea {
-    min-height: 100px;
+    min-height: 120px;
     resize: vertical;
 }
 
+input[type="file"] {
+    padding: 8px;
+    background-color: var(--fundo);
+}
+
+/* Destaque dos campos selecionados */
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--azul-medio);
+    box-shadow: 0 0 0 3px rgba(40, 117, 184, 0.15);
+}
 
 /* =====================================================
    BOTÕES
@@ -134,32 +212,59 @@ textarea {
 button,
 input[type="submit"],
 input[type="reset"] {
-    padding: 10px 18px;
+    display: inline-block;
+    padding: 10px 17px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
+    background-color: var(--azul-profundo);
+    color: var(--branco);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 15px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 button:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover {
-    opacity: 0.85;
+    background-color: var(--azul-marinho);
+    transform: translateY(-1px);
 }
 
+button:focus-visible,
+input[type="submit"]:focus-visible,
+input[type="reset"]:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--azul-medio);
+    outline-offset: 3px;
+}
 
 /* =====================================================
-   LINKS
+   BOTÕES DE AÇÃO E DETALHES
    ===================================================== */
 
-a {
-    color: #1a5fb4;
-}
-
-a:hover {
+.partitura-item a,
+main > a,
+.acoes-detalhe a {
+    display: inline-block;
+    padding: 9px 14px;
+    border-radius: 6px;
+    background-color: var(--azul-profundo);
+    color: var(--branco);
     text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
+.partitura-item a:hover,
+main > a:hover,
+.acoes-detalhe a:hover {
+    background-color: var(--azul-marinho);
+    color: var(--branco);
+    transform: translateY(-1px);
+}
 
 /* =====================================================
    LISTA DE PARTITURAS
@@ -167,47 +272,35 @@ a:hover {
 
 .partitura-item {
     display: flex;
-    gap: 20px;
     align-items: flex-start;
+    gap: 22px;
+    padding: 22px;
+    margin: 18px 0;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    background-color: var(--branco);
     text-align: left;
-    padding: 20px;
-    margin: 15px 0 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fafafa;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.partitura-item:hover {
+    border-color: #B7D3EA;
+    box-shadow: var(--sombra);
 }
 
 .partitura-item h2 {
     margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .partitura-item p {
     margin: 8px 0;
-}
-
-
-/* =====================================================
-   PRÉVIA DO PDF NAS LISTAS
-   ===================================================== */
-
-.partitura-preview {
-    width: 180px;
-    height: 240px;
-    flex-shrink: 0;
-    overflow: hidden;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f4f4f4;
-}
-
-.partitura-preview iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
+    color: var(--texto-suave);
 }
 
 .partitura-info {
     flex: 1;
+    min-width: 0;
 }
 
 .partitura-info h2 {
@@ -216,137 +309,77 @@ a:hover {
 
 .partitura-acoes {
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 16px;
 }
 
 .partitura-acoes a {
-    display: inline-block;
-    padding: 8px 14px;
-    text-decoration: none;
+    margin-top: 0;
 }
-
 
 /* =====================================================
-   RODAPÉ
+   PRÉVIA DOS PDFS
    ===================================================== */
 
-footer {
-    margin-top: 40px;
-    padding: 25px 20px;
-    text-align: center;
-    background-color: #f2f2f2;
-    border-top: 1px solid #ddd;
-    color: #555;
+.partitura-preview {
+    width: 180px;
+    height: 240px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    background-color: var(--fundo);
 }
 
-footer p {
-    margin: 5px 0;
-    font-size: 14px;
-}
-
-footer p:first-child {
-    font-weight: bold;
-}
-
-
-/* =====================================================
-   MENSAGENS E TEXTOS DOS FORMULÁRIOS
-   ===================================================== */
-
-form p {
-    margin: 10px 0;
-}
-
-form small {
+.partitura-preview iframe {
     display: block;
-    margin-top: -5px;
-    margin-bottom: 10px;
-    color: #666;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
-
-
-/* =====================================================
-   CHECKBOX
-   ===================================================== */
-
-input[type="checkbox"] {
-    width: auto;
-    margin-right: 5px;
-}
-
-
-/* =====================================================
-   ÁREA DE PESQUISA
-   ===================================================== */
-
-input[name="termo"] {
-    margin-bottom: 15px;
-}
-
-
-/* =====================================================
-   CAMPOS EM FOCO
-   ===================================================== */
-
-input:focus,
-textarea:focus,
-select:focus {
-    outline: none;
-    border-color: #1a5fb4;
-    box-shadow: 0 0 4px rgba(26, 95, 180, 0.3);
-}
-
 
 /* =====================================================
    DETALHES DA PARTITURA
    ===================================================== */
 
 .detalhe-partitura {
+    margin: 22px auto;
+    padding: 22px;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    background-color: var(--fundo);
     text-align: left;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fafafa;
 }
 
 .detalhe-partitura p {
-    padding: 10px 0;
     margin: 0;
-    border-bottom: 1px solid #e5e5e5;
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--borda);
+    overflow-wrap: anywhere;
 }
 
 .detalhe-partitura p:last-child {
     border-bottom: none;
 }
 
-
-/* =====================================================
-   PRÉVIA DO PDF NA PÁGINA DE DETALHES
-   ===================================================== */
-
 .detalhe-preview {
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
     height: 700px;
-    margin: 0 auto 30px auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    margin: 0 auto 28px;
     overflow: hidden;
-    background-color: #f4f4f4;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    background-color: var(--fundo);
 }
 
 .detalhe-preview iframe {
+    display: block;
     width: 100%;
     height: 100%;
     border: none;
 }
-
-
-/* =====================================================
-   AÇÕES DA PÁGINA DE DETALHES
-   ===================================================== */
 
 .acoes-detalhe {
     display: flex;
@@ -356,22 +389,8 @@ select:focus {
     margin-top: 25px;
 }
 
-.acoes-detalhe a {
-    display: inline-block;
-    padding: 10px 16px;
-    background-color: #0e3da2;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.acoes-detalhe a:hover {
-    background-color: #144a8a;
-}
-
-
 /* =====================================================
-   BOTÕES DA PÁGINA INICIAL
+   PÁGINA INICIAL
    ===================================================== */
 
 .botoes-inicio {
@@ -383,90 +402,169 @@ select:focus {
 
 .botoes-inicio a {
     display: inline-block;
-    padding: 9px 15px;
-    background-color: #222;
-    color: #fff;
-    text-decoration: none;
+    padding: 10px 16px;
     border-radius: 6px;
+    background-color: var(--azul-marinho);
+    color: var(--branco);
+    text-decoration: none;
     font-size: 14px;
     font-weight: 600;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .botoes-inicio a:hover {
-    background-color: #444;
+    background-color: var(--azul-profundo);
+    color: var(--branco);
     transform: translateY(-2px);
 }
 
+/* =====================================================
+   TEXTOS AUXILIARES
+   ===================================================== */
+
+form p {
+    margin: 12px 0;
+}
+
+form small {
+    display: block;
+    margin-top: -5px;
+    margin-bottom: 12px;
+    color: var(--texto-suave);
+    font-size: 13px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: auto;
+    margin-right: 6px;
+    accent-color: var(--azul-profundo);
+}
+
+/* =====================================================
+   ÁREA DE PESQUISA
+   ===================================================== */
+
+input[name="termo"] {
+    margin-bottom: 15px;
+}
+
+/* =====================================================
+   RODAPÉ
+   ===================================================== */
+
+footer {
+    margin-top: 40px;
+    padding: 25px 20px;
+    border-top: 3px solid var(--azul-profundo);
+    background-color: var(--azul-marinho);
+    color: #EAF2F8;
+    text-align: center;
+}
+
+footer p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+footer p:first-child {
+    font-weight: 600;
+    color: var(--branco);
+}
+
+footer a {
+    color: var(--azul-gelo);
+}
+
+footer a:hover {
+    color: var(--branco);
+}
 
 /* =====================================================
    RESPONSIVIDADE
    ===================================================== */
 
-@media (max-width: 600px) {
-
+@media (max-width: 700px) {
     header {
-        padding: 15px;
+        padding: 20px 14px;
     }
 
+    nav {
+        gap: 5px;
+    }
+
+    nav a {
+        padding: 9px 11px;
+    }
+
+    main {
+        width: 94%;
+        margin: 20px auto;
+        padding: 22px 17px;
+    }
+
+    .partitura-item {
+        flex-direction: column;
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .partitura-preview {
+        width: 100%;
+        height: 350px;
+    }
+
+    .partitura-acoes,
+    .acoes-detalhe,
+    .botoes-inicio {
+        gap: 8px;
+    }
+
+    .detalhe-partitura {
+        padding: 14px;
+    }
+
+    .detalhe-preview {
+        height: 500px;
+    }
+}
+
+@media (max-width: 450px) {
     header h1 {
         font-size: 22px;
     }
 
     nav {
         flex-direction: column;
-        gap: 5px;
+        align-items: stretch;
     }
 
     nav a {
-        display: block;
+        text-align: center;
     }
 
     main {
-        width: 95%;
-        padding: 20px;
-        margin: 20px auto;
-    }
-
-    .partitura-item {
-        flex-direction: column;
-        padding: 15px;
+        width: 96%;
+        padding: 18px 13px;
     }
 
     .partitura-preview {
-        width: 100%;
-        height: 400px;
+        height: 300px;
     }
 
-    .partitura-acoes {
-        flex-direction: column;
-    }
-
-    .partitura-acoes a {
-        text-align: center;
-    }
-
-    .detalhe-partitura {
-        padding: 15px;
-    }
-
-    .detalhe-preview {
-        height: 500px;
-    }
-
-    .acoes-detalhe {
-        flex-direction: column;
-    }
-
-    .acoes-detalhe a {
-        text-align: center;
-    }
-
+    .partitura-acoes,
+    .acoes-detalhe,
     .botoes-inicio {
         flex-direction: column;
     }
 
+    .partitura-acoes a,
+    .acoes-detalhe a,
     .botoes-inicio a {
         text-align: center;
+    }
+
+    .detalhe-preview {
+        height: 400px;
     }
 }
