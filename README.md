@@ -251,7 +251,7 @@ Para uma instalação nova, clone o repositório no diretório de implantação:
 ```bash
 cd /var/www/html
 sudo git clone https://github.com/cauepasilva-art/acervo-partituras-brasileiras.git acervo-sistema
-cd /var/www/html/acervo-sistema/mini-sistema-main
+cd /var/www/html/acervo-partituras-brasileiras/mini-sistema-main
 ```
 
 Se o projeto já estiver instalado, não execute o clone sobre uma pasta existente. Confira os arquivos presentes e atualize-os conforme o procedimento adotado no servidor.
