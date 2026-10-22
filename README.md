@@ -1,109 +1,429 @@
-# Acervo Digital de Partituras Brasileiras
+# 🎼 Acervo Digital de Partituras Brasileiras — Documentação Técnica e Procedimento de Restauração do Banco
 
-Sistema web para catalogação, organização, consulta e preservação digital de partituras brasileiras. A aplicação permite gerenciar usuários, cadastrar informações musicais e registrar a procedência e a situação dos direitos de uso das partituras.
+## Sumário
 
-## 1. Sobre o projeto
+1. Visão geral do projeto
+2. Levantamento de requisitos
+3. Arquitetura e fluxo do sistema
+4. Processo de restauração do banco de dados
+5. Fluxograma da restauração
+6. Dependências e pré-requisitos
+7. Configuração do banco de dados
+8. Validação pós-restauração
+9. Arquivos relacionados à restauração
+10. Segurança
+11. Rastreabilidade e evidências
 
-O **Acervo Digital de Partituras Brasileiras** tem como objetivo reunir e organizar informações sobre partituras em formato digital, facilitando sua consulta e preservação.
+## 1. Visão geral do projeto
 
-O sistema permite registrar título, compositor, ano de composição, gênero musical, instrumentação, tonalidade, descrição, fonte de procedência e situação dos direitos autorais.
+### 1.1 Objetivo
 
-A aplicação foi implantada em um servidor Linux para permitir o acesso por dispositivos conectados à mesma rede local.
+O Acervo Digital de Partituras Brasileiras é uma aplicação web em PHP para cadastrar, organizar e consultar partituras, reunindo informações sobre títulos, compositores, ano de composição, gênero musical, instrumentação, tonalidade, descrição, procedência e situação dos direitos autorais.
 
-## 2. Funcionalidades
+O sistema utiliza PostgreSQL para armazenar os registros e oferece funcionalidades administrativas para cadastrar, consultar, atualizar e excluir partituras. A autenticação controla o acesso às páginas administrativas.
 
-- Cadastro e autenticação de usuários.
-- Controle de acesso às páginas administrativas.
-- Cadastro de partituras e seus metadados.
-- Listagem e consulta de registros.
-- Pesquisa de partituras.
-- Edição e exclusão de registros.
-- Registro da procedência das partituras.
-- Registro da situação dos direitos de uso.
-- Controle de visibilidade dos registros.
-- Integração com banco de dados PostgreSQL.
-- Armazenamento de informações relacionadas aos arquivos digitais.
+### 1.2 Tecnologias
 
-A disponibilidade das funcionalidades depende da versão instalada e da configuração do ambiente.
+| Camada | Tecnologia |
+|---|---|
+| Back-end | PHP |
+| Acesso a dados | PDO |
+| Banco de dados | PostgreSQL |
+| Servidor web | Nginx |
+| Processamento PHP | PHP-FPM |
+| Front-end | HTML e CSS |
+| Controle de versão | Git / GitHub |
 
-## 3. Tecnologias utilizadas
-
-- **PHP:** lógica e processamento da aplicação.
-- **PostgreSQL:** armazenamento dos dados.
-- **PDO:** conexão entre PHP e PostgreSQL.
-- **HTML5:** estrutura das páginas.
-- **CSS3:** apresentação visual.
-- **Nginx:** servidor web.
-- **PHP-FPM:** processamento dos scripts PHP.
-- **Git e GitHub:** versionamento e armazenamento do código-fonte.
-
-## 4. Estrutura do projeto
-
-O repositório contém a aplicação na pasta `mini-sistema-main/`.
+### 1.3 Estrutura de diretórios
 
 ```text
 acervo-partituras-brasileiras/
-├── mini-sistema-main/
-│   ├── app/
-│   │   ├── create.php
-│   │   ├── select.php
-│   │   ├── select_where.php
-│   │   ├── update.php
-│   │   ├── delete.php
-│   │   ├── detalhe.php
-│   │   └── download.php
-│   ├── database/
-│   │   ├── connect.php
-│   │   ├── schema.sql
-│   │   └── acervo_demo.sql
-│   ├── includes/
-│   │   ├── functions.php
-│   │   ├── header.php
-│   │   └── footer.php
-│   ├── login/
-│   │   ├── login.php
-│   │   ├── cadastrar.php
-│   │   ├── logout.php
-│   │   └── verifica_user.php
-│   ├── uploads/
-│   ├── style/
-│   └── index.php
 ├── README.md
-└── .gitignore
+└── mini-sistema-main/
+    ├── index.php
+    ├── dump.sql
+    ├── app/
+    │   ├── create.php
+    │   ├── delete.php
+    │   ├── select.php
+    │   ├── select_where.php
+    │   └── update.php
+    ├── database/
+    │   ├── connect.php
+    │   └── schema.sql
+    ├── includes/
+    │   ├── functions.php
+    │   ├── header.php
+    │   └── footer.php
+    ├── login/
+    │   ├── login.php
+    │   ├── cadastrar.php
+    │   ├── logout.php
+    │   └── verifica_user.php
+    ├── style/
+    └── uploads/
 ```
 
-A estrutura pode variar conforme a versão instalada. Consulte os arquivos presentes no repositório antes de executar comandos.
+A estrutura apresenta os diretórios principais do projeto. Os arquivos relacionados ao banco de dados, à autenticação e às operações CRUD são responsáveis por manter a aplicação conectada ao PostgreSQL e organizar o gerenciamento das partituras.
 
-## 5. Requisitos para instalação
+### 1.4 Relação entre os componentes
 
-Para executar a aplicação, o ambiente deve possuir:
+O arquivo `database/connect.php` estabelece a conexão com o PostgreSQL por meio do PDO. O arquivo `includes/functions.php` concentra funções reutilizáveis para as operações com os registros.
 
-- Sistema operacional compatível, como Linux.
-- PHP com as extensões necessárias.
-- Extensão `pdo_pgsql` para conexão com PostgreSQL.
-- PostgreSQL instalado e configurado.
-- Nginx com PHP-FPM ou outro servidor web compatível com PHP.
-- Git, caso seja necessário obter o código pelo repositório.
+O diretório `app/` reúne as páginas de cadastro, consulta, atualização e exclusão de partituras. O diretório `login/` contém as páginas de autenticação, cadastro de usuários, encerramento de sessão e verificação de acesso.
 
-## 6. Obter o código-fonte
+O arquivo `database/schema.sql` contém a estrutura das tabelas utilizadas na instalação do banco. O arquivo `dump.sql`, localizado na raiz de `mini-sistema-main/`, corresponde ao arquivo de dump presente no repositório.
 
-O repositório oficial é:
+### 1.5 Arquitetura geral
 
+```text
+Navegador
+   |
+   v
+Nginx
+   |
+   v
+PHP-FPM
+   |
+   v
+Páginas PHP
+   |
+   +---- login/
+   |
+   +---- app/
+   |
+   +---- includes/functions.php
+                |
+                v
+       database/connect.php
+                |
+                v
+          PostgreSQL
+           /       \
+          v         v
+     usuarios   partituras
+```
+
+### 1.6 Modelo de dados
+
+O banco de dados utiliza as tabelas `usuarios` e `partituras`.
+
+A tabela `usuarios` armazena as informações necessárias para a autenticação, incluindo identificador, e-mail, hash da senha e data de criação.
+
+A tabela `partituras` armazena os metadados musicais, a situação dos direitos, as informações do arquivo e os dados de criação e atualização. O campo `criado_por` referencia o usuário responsável pelo cadastro.
+
+A estrutura também utiliza chaves primárias, restrições de unicidade, chave estrangeira e índices para apoiar a integridade e as consultas.
+
+## 2. Levantamento de requisitos
+
+### 2.1 Requisitos funcionais
+
+| ID | Requisito | Comportamento | Módulo | Evidência |
+|---|---|---|---|---|
+| RF01 | Autenticação de usuário | Permite cadastrar usuário, entrar e sair do sistema | `login/` | Sessões e validação de acesso |
+| RF02 | Proteção administrativa | Bloqueia páginas protegidas quando não existe sessão válida | `login/verifica_user.php` | Verificação de `$_SESSION['id']` |
+| RF03 | Cadastrar partitura | Registra título, compositor e metadados musicais | `app/create.php` | Funções em `includes/functions.php` |
+| RF04 | Consultar e listar partituras | Permite consultar registros cadastrados | `app/select.php`, `app/select_where.php` | Consultas ao PostgreSQL |
+| RF05 | Atualizar partitura | Modifica os dados de uma partitura existente | `app/update.php` | Operação de atualização |
+| RF06 | Excluir partitura | Remove um registro identificado | `app/delete.php` | Operação de exclusão |
+| RF07 | Registrar direitos | Armazena a situação dos direitos e informações de licença | Páginas de cadastro e edição | Campo `situacao_direitos` |
+| RF08 | Registrar procedência | Permite informar a fonte ou procedência da partitura | `app/create.php` | Campo `fonte_procedencia` |
+| RF09 | Controlar visibilidade | Registra se uma partitura está visível | Formulários e banco de dados | Campo `visivel` |
+| RF10 | Encerrar sessão | Limpa a sessão e encerra a autenticação | `login/logout.php` | `session_destroy()` |
+
+### Requisitos de backup e restauração
+
+| ID | Requisito | Origem |
+|---|---|---|
+| RB01 | O backup pode ser gerado com `pg_dump` em formato SQL puro do banco `acervo` | Procedimento de backup |
+| RB02 | O arquivo de dump presente no repositório chama-se `dump.sql` e está na raiz de `mini-sistema-main/` | Repositório GitHub |
+| RB03 | A restauração utiliza `psql` com um banco PostgreSQL previamente criado | Procedimento de restauração |
+| RB04 | Após a restauração, os parâmetros de conexão devem corresponder ao ambiente | `database/connect.php` |
+| RB05 | O ambiente precisa de Git, PostgreSQL, PHP, PHP-FPM e do driver PDO para PostgreSQL | Dependências da aplicação |
+| RB06 | No servidor utilizado, a aplicação está em `/var/www/html/acervo-sistema/mini-sistema-main/` | Ambiente de implantação |
+
+### 2.2 Requisitos não funcionais
+
+| ID | Título | Situação |
+|---|---|---|
+| RNF01 | Tecnologias base | PHP e PostgreSQL |
+| RNF02 | Acesso ao banco | PDO por meio de `database/connect.php` |
+| RNF03 | Compatibilidade web | Navegadores modernos |
+| RNF04 | Proteção contra SQL Injection | Utilizar consultas parametrizadas |
+| RNF05 | Sessões e autenticação | Sessões PHP e encerramento no logout |
+| RNF06 | Integridade dos dados | Chaves primárias, restrições e referências entre tabelas |
+| RNF07 | Controle de acesso | Verificação de sessão nas páginas protegidas |
+| RNF08 | Organização do código | Separação entre páginas, funções e conexão |
+| RNF09 | Interface | Formulários de cadastro e gerenciamento |
+| RNF10 | Manutenção | Código organizado em diretórios específicos |
+| RNF11 | Feedback ao usuário | Mensagens de sucesso e erro nas operações |
+| RNF12 | Recuperação de dados | Backup SQL e procedimento de restauração |
+
+### Complementos por categoria
+
+| Categoria | Descrição |
+|---|---|
+| Segurança | Autenticação, proteção de páginas e cuidado com credenciais |
+| Integridade dos dados | Chaves primárias, restrições e chave estrangeira |
+| Compatibilidade | PHP com suporte ao PDO PostgreSQL |
+| Armazenamento | Metadados e informações sobre os arquivos das partituras |
+| Manutenção | Código separado em `app/`, `database/`, `includes/` e `login/` |
+| Recuperação de dados | Dump SQL e restauração com `psql` |
+| Controle de acesso | Verificação de sessão por `login/verifica_user.php` |
+
+## 3. Arquitetura e fluxo do sistema
+
+### 3.1 Acesso ao banco e controle de acesso
+
+A aplicação utiliza `database/connect.php` para estabelecer a conexão com o PostgreSQL. As funções de acesso aos dados estão centralizadas em `includes/functions.php`.
+
+As páginas protegidas verificam a existência de uma sessão válida por meio de `login/verifica_user.php`. Quando o usuário não está autenticado, o acesso é redirecionado para a página de login.
+
+### 3.2 Autenticação e gerenciamento de partituras
+
+O usuário acessa a aplicação pelo navegador. O Nginx encaminha as requisições PHP ao PHP-FPM, que executa os arquivos da aplicação.
+
+As operações administrativas são realizadas pelas páginas do diretório `app/`. Os dados são enviados às funções de negócio, que acessam o PostgreSQL por meio da conexão PDO.
+
+O fluxo principal de gerenciamento compreende cadastro, consulta, atualização e exclusão de partituras. O sistema também registra informações relacionadas aos direitos autorais e à procedência.
+
+### 3.3 Backup
+
+O backup do banco PostgreSQL foi gerado utilizando `pg_dump`, com saída em formato SQL puro.
+
+O comando utilizado foi:
+
+```bash
+pg_dump -U postgres -h localhost -p 5432 -F p -b -v -f acervo.sql acervo
+```
+
+O arquivo `acervo.sql` foi salvo inicialmente no diretório de trabalho do comando no servidor. Posteriormente, foi identificada uma cópia local no Windows. No repositório GitHub, o arquivo de dump presente no projeto chama-se `dump.sql` e está na raiz de `mini-sistema-main/`.
+
+Esses nomes correspondem a arquivos em locais distintos. Antes de restaurar o banco, confirme qual arquivo será utilizado e se ele contém o backup pretendido.
+
+## 4. Processo de restauração do banco de dados
+
+### Restaurar o dump do Acervo Digital de Partituras Brasileiras: passo a passo
+
+Substitua os valores de exemplo pelos parâmetros correspondentes ao ambiente.
+
+Pré-requisitos: Linux com `apt`, usuário com permissão `sudo`, acesso ao repositório e acesso administrativo ao PostgreSQL.
+
+### 1. Instalar e iniciar os serviços
+
+```bash
+sudo apt update
+sudo apt install git nginx php-fpm php-pgsql postgresql postgresql-contrib -y
+sudo systemctl start postgresql nginx
+```
+
+Confira a versão do PHP e as extensões necessárias:
+
+```bash
+php -v
+php -m | grep -i pgsql
+sudo systemctl status postgresql
+sudo systemctl status nginx
+```
+
+O PHP precisa estar disponível com suporte ao PostgreSQL. O Nginx encaminha as requisições PHP ao PHP-FPM.
+
+Se o Apache estiver instalado e estiver ocupando a porta 80, verifique a configuração antes de interrompê-lo.
+
+### 2. Baixar o projeto
+
+Repositório utilizado:
+
+```text
 https://github.com/cauepasilva-art/acervo-partituras-brasileiras
-
-Para clonar o projeto em um novo diretório:
-
-```bash
-git clone https://github.com/cauepasilva-art/acervo-partituras-brasileiras.git
-cd acervo-partituras-brasileiras
 ```
 
-Se o repositório já estiver instalado, não execute o clone novamente sobre a pasta existente. Entre no diretório e confira o estado do Git:
+Para uma instalação nova, clone o repositório no diretório de implantação:
 
 ```bash
-git status
-git remote -v
+cd /var/www/html
+sudo git clone https://github.com/cauepasilva-art/acervo-partituras-brasileiras.git acervo-sistema
+cd /var/www/html/acervo-sistema/mini-sistema-main
 ```
+
+**Importante:** o repositório contém a aplicação dentro da subpasta `mini-sistema-main/`. O diretório de implantação confirmado no servidor é `/var/www/html/acervo-sistema/mini-sistema-main/`.
+
+Se o projeto já estiver instalado, não execute o clone sobre uma pasta existente. Confira os arquivos presentes e atualize-os conforme o procedimento adotado no servidor.
+
+Confira os arquivos:
+
+```bash
+ls -lh
+ls -lh database/
+```
+
+O arquivo `dump.sql` está na raiz de `mini-sistema-main/`. O diretório `database/` contém `connect.php` e `schema.sql`.
+
+Para localizar instruções de criação de tabelas no dump:
+
+```bash
+grep -n "CREATE TABLE" dump.sql
+```
+
+### 3. Verificar o banco de dados
+
+O banco utilizado no ambiente atual chama-se `acervo`.
+
+Antes de criar tabelas ou restaurar dados, verifique se o banco já existe e se contém informações que precisam ser preservadas.
+
+Para acessar o PostgreSQL:
+
+```bash
+sudo -u postgres psql
+```
+
+No terminal do PostgreSQL, a listagem de bancos pode ser consultada com:
+
+```sql
+\l
+```
+
+Saia do terminal com:
+
+```sql
+\q
+```
+
+**Atenção:** não crie novamente um banco existente e não tente recriar usuários, tabelas ou índices que já existam sem verificar o estado atual.
+
+### 4. Restaurar o dump
+
+Antes de restaurar, identifique o arquivo correto. O arquivo `dump.sql` está na raiz de `mini-sistema-main/`; `acervo.sql` foi o nome utilizado no comando de backup executado anteriormente.
+
+O banco `acervo` já existe no ambiente atual e as tabelas `usuarios` e `partituras` já foram encontradas. Portanto, **não execute `schema.sql` novamente sobre esse banco**.
+
+Para uma instalação nova, com um banco de destino vazio e apropriado, um dump SQL puro pode ser restaurado com:
+
+```bash
+cd /var/www/html/acervo-sistema/mini-sistema-main
+sudo -u postgres psql -d acervo -f dump.sql
+```
+
+Esse comando é um exemplo para uma restauração planejada. Não o execute no banco atual sem confirmar o destino e fazer backup dos dados existentes. Uma restauração pode falhar ou causar conflitos quando objetos e dados já existem.
+
+Como o dump está em formato SQL puro, utiliza-se `psql`, e não `pg_restore`.
+
+### 5. Configurar a conexão
+
+O arquivo responsável pela conexão é:
+
+```text
+/var/www/html/acervo-sistema/mini-sistema-main/database/connect.php
+```
+
+Confira se os parâmetros correspondem ao banco e ao usuário configurados no ambiente:
+
+```php
+<?php
+$host   = "localhost";
+$dbname = "acervo";
+$user   = "USUARIO_CONFIGURADO";
+$pass   = "SENHA_CONFIGURADA";
+```
+
+O exemplo mostra os parâmetros principais. Preserve a estrutura efetivamente utilizada no arquivo do projeto e não publique senhas reais no GitHub.
+
+### 6. Permissões dos arquivos
+
+O caminho utilizado na implantação é:
+
+```text
+/var/www/html/acervo-sistema/mini-sistema-main/
+```
+
+O diretório `uploads/` está presente na estrutura do projeto. Verifique as permissões necessárias para a aplicação, sem tornar os arquivos executáveis ou publicamente graváveis sem necessidade.
+
+Não altere recursivamente as permissões de todo o projeto sem avaliar os efeitos sobre os arquivos PHP, as configurações e os arquivos enviados.
+
+### 7. Validar a aplicação
+
+A URL de acesso informada anteriormente foi:
+
+```text
+http://192.168.10.15/acervo-partituras-brasileiras/mini-sistema-main/
+```
+
+O endereço depende da configuração do Nginx e do IP atual do servidor. O caminho físico dos arquivos não determina, por si só, a URL pública da aplicação.
+
+Confira se a página inicial abre, se a conexão com o PostgreSQL funciona e se as operações de autenticação e gerenciamento de partituras podem ser executadas.
+
+Registre o resultado das validações sem expor senhas ou outros dados sensíveis.
+
+### Registro final
+
+Anote a data da restauração, a origem do dump, a versão do PostgreSQL (`psql --version`), o arquivo utilizado e o resultado das validações.
+
+## 5. Fluxograma da restauração
+
+```text
+Início
+  |
+  v
+Verificar pré-requisitos
+  |
+  v
+Instalar e iniciar os serviços
+  |
+  v
+Obter os arquivos do projeto
+  |
+  v
+Conferir o dump SQL
+  |
+  v
+Verificar o usuário e o banco
+  |
+  v
+Fazer backup prévio, se houver dados
+  |
+  v
+Selecionar o banco de destino apropriado
+  |
+  v
+Restaurar com psql, se aplicável
+  |
+  v
+Conferir tabelas e registros
+  |
+  v
+Configurar database/connect.php
+  |
+  v
+Validar a aplicação web
+  |
+  v
+Registrar evidências
+  |
+  v
+Fim
+```
+
+## 6. Dependências e pré-requisitos
+
+| Item | Requisito |
+|---|---|
+| Sistema operacional | Linux com `apt`, como Ubuntu |
+| Banco de dados | PostgreSQL |
+| Cliente PostgreSQL | `psql` |
+| PHP | Versão compatível com o projeto |
+| Extensão de banco | PDO PostgreSQL (`pdo_pgsql`) |
+| Servidor web | Nginx |
+| Processamento PHP | PHP-FPM |
+| Git | Para clonar e atualizar o projeto |
+| Diretório do repositório | `/var/www/html/acervo-sistema/` |
+| Diretório da aplicação | `/var/www/html/acervo-sistema/mini-sistema-main/` |
+| Arquivo de estrutura | `database/schema.sql` |
+| Arquivo de dump | `dump.sql`, na raiz de `mini-sistema-main/` |
+| Arquivo de conexão | `database/connect.php` |
+| Banco | `acervo` |
+| Serviços | PostgreSQL, Nginx e PHP-FPM ativos |
+| Permissões | Acesso de leitura aos arquivos e permissões necessárias para `uploads/` |
+| Rede | Acesso local ao PostgreSQL pela porta configurada |
 
 ## 7. Configuração do banco de dados
 
@@ -146,206 +466,143 @@ Confira se os parâmetros de conexão correspondem ao ambiente:
 
 Não publique senhas, credenciais ou informações privadas de conexão no GitHub. Em ambientes compartilhados, prefira variáveis de ambiente ou um arquivo de configuração protegido.
 
-## 8. Acesso pela rede local
+## 8. Validação pós-restauração
 
-A aplicação foi implantada em um servidor Linux com Nginx, PHP-FPM e PostgreSQL.
+### 8.1 Banco
 
-O caminho da aplicação no servidor é:
+- PostgreSQL ativo: `sudo systemctl status postgresql`
+- Nginx ativo: `sudo systemctl status nginx`
+- PHP-FPM ativo: `systemctl status php8.5-fpm`, ajustando o nome do serviço à versão instalada.
+- Conexão: `psql -U USUARIO_CONFIGURADO -h localhost -d acervo -c "SELECT 1;"`
+- Tabelas `usuarios` e `partituras` presentes: `\dt`
+- Conferência da estrutura: `\d usuarios` e `\d partituras`
+- Quantidade de registros de partituras:
 
-```text
-/var/www/html/acervo-partituras-brasileiras/mini-sistema-main/
+```sql
+SELECT count(*) FROM partituras;
 ```
 
-O endereço configurado para acesso pela rede local é:
+- Quantidade de usuários:
 
-**http://192.168.10.15/acervo-partituras-brasileiras/mini-sistema-main/**
-
-Para acessar o sistema:
-
-1. Ligue o servidor e confirme que os serviços necessários estão funcionando.
-2. Conecte o computador ou celular à mesma rede local do servidor.
-3. Abra um navegador.
-4. Digite o endereço informado acima.
-5. Faça login para acessar as funcionalidades que exigem autenticação.
-
-O endereço depende de o servidor continuar usando o IP `192.168.10.15`. Se o IP mudar, o link também precisará ser atualizado.
-
-### 8.1. Verificar o servidor
-
-No terminal do servidor, execute:
-
-```bash
-hostname -I
-systemctl is-active nginx
-systemctl is-active php8.5-fpm
+```sql
+SELECT count(*) FROM usuarios;
 ```
 
-O primeiro comando mostra os endereços IP do servidor. Os outros verificam o estado dos serviços Nginx e PHP-FPM.
+- Verificação de registros e situação dos direitos:
 
-Se a página não abrir em outro dispositivo, confira:
-
-- Se os dispositivos estão conectados à mesma rede.
-- Se o IP do servidor está correto.
-- Se o Nginx e o PHP-FPM estão ativos.
-- Se as regras de firewall permitem o acesso HTTP necessário.
-- Se o roteador não está isolando os dispositivos conectados à rede Wi-Fi.
-
-Para facilitar o acesso, pode ser configurada uma reserva de endereço IP no roteador.
-
-**Importante:** acesso pela rede local não significa que o sistema esteja disponível pela internet. Não exponha o banco de dados PostgreSQL diretamente à internet.
-
-## 9. Backup e restauração do banco de dados
-
-O projeto possui dois usos distintos para backups:
-
-- **Backup original:** contém os dados existentes no banco e deve permanecer privado.
-- **Dump de demonstração:** contém a estrutura do banco, sem os registros reais.
-
-### 9.1. Dump de demonstração do repositório
-
-O arquivo de demonstração está previsto no caminho:
-
-`mini-sistema-main/database/acervo_demo.sql`
-
-Esse arquivo foi gerado usando `pg_dump --schema-only`, portanto contém a estrutura do banco, sem os registros das tabelas.
-
-Ele pode ser usado para criar um banco vazio de demonstração, desde que corresponda à versão atual da aplicação.
-
-### 9.2. Criar um banco de demonstração
-
-Depois de obter o repositório, execute no servidor:
-
-```bash
-sudo -u postgres createdb acervo_demo
-sudo -u postgres psql -d acervo_demo -f /var/www/html/acervo-partituras-brasileiras/mini-sistema-main/database/acervo_demo.sql
+```sql
+SELECT id, titulo, compositor, situacao_direitos, visivel
+FROM partituras;
 ```
 
-Esses comandos pressupõem que o arquivo esteja no caminho indicado e que o banco `acervo_demo` ainda não exista.
+- Verificação de referências de usuários:
 
-O banco criado contém a estrutura, mas não contém os registros reais dos usuários ou das partituras. Para utilizar esse banco na aplicação, configure a conexão de forma apropriada em um ambiente de teste.
-
-### 9.3. Backup original da implantação
-
-O backup original do banco `acervo` foi gerado em formato SQL de texto e armazenado no servidor em:
-
-```text
-/root/acervo_backup.sql
+```sql
+SELECT id, criado_por
+FROM partituras;
 ```
 
-O arquivo tinha aproximadamente 7,3 KB no momento da verificação. O tamanho pode mudar conforme novos registros sejam adicionados.
+Compare as quantidades com a origem do backup, quando esses dados estiverem disponíveis.
 
-Esse backup contém a estrutura e os registros existentes no momento da geração, incluindo dados das tabelas `usuarios` e `partituras`. A tabela de usuários inclui a coluna `senha_hash`.
+### 8.2 Aplicação
 
-**O backup original não deve ser publicado em um repositório público**, pois pode conter informações pessoais e hashes de senhas.
+- `index.php` carrega sem erros.
+- A conexão com PostgreSQL funciona.
+- O login e o cadastro de usuários funcionam conforme configurados.
+- As páginas administrativas redirecionam usuários não autenticados.
+- O cadastro de partituras funciona.
+- A listagem e a consulta de registros funcionam.
+- A atualização de registros funciona.
+- A exclusão de registros funciona.
+- Os campos de direitos e procedência são mantidos.
+- A visibilidade dos registros corresponde aos valores armazenados.
+- O logout encerra a sessão.
+- Não há erros críticos nos logs do Nginx e do PHP-FPM.
 
-### 9.4. Gerar um novo backup original
+## 9. Arquivos relacionados à restauração
 
-Para gerar um novo backup do banco `acervo`, execute no servidor:
+| Arquivo/Diretório | Função | Relação com a restauração |
+|---|---|---|
+| `dump.sql` | Dump SQL presente na raiz do projeto | Arquivo de backup adicionado ao repositório |
+| `database/schema.sql` | Estrutura do banco | Criação das tabelas em uma instalação nova |
+| `database/connect.php` | Conexão PDO e credenciais | Ajuste dos parâmetros de conexão |
+| `includes/functions.php` | Funções de negócio e consultas | Operações sobre as tabelas |
+| `app/create.php` | Cadastro de partituras | Validação do cadastro |
+| `app/select.php` | Listagem de registros | Validação da consulta |
+| `app/select_where.php` | Consulta de registro | Verificação de registros individuais |
+| `app/update.php` | Atualização de partituras | Validação das alterações |
+| `app/delete.php` | Exclusão de partituras | Validação da remoção |
+| `login/login.php` | Autenticação | Verificação de acesso |
+| `login/cadastrar.php` | Cadastro de usuários | Criação de contas |
+| `login/logout.php` | Encerramento de sessão | Validação do logout |
+| `login/verifica_user.php` | Proteção das páginas | Controle de acesso |
+| `uploads/` | Diretório de arquivos enviados | Verificação das permissões e dos arquivos |
+| `README.md` | Documentação | Procedimentos de instalação e restauração |
 
-```bash
-sudo -u postgres pg_dump -d acervo -F p -f /tmp/acervo_backup.sql
-ls -lh /tmp/acervo_backup.sql
-mv /tmp/acervo_backup.sql /root/acervo_backup.sql
-ls -lh /root/acervo_backup.sql
-```
+## 10. Segurança
 
-O arquivo temporário é criado em `/tmp` porque o usuário do sistema `postgres` não possui permissão para gravar diretamente no diretório `/root`.
+### 10.1 Comportamento e verificações
 
-O parâmetro `-F p` gera um arquivo SQL em formato texto.
+- A conexão com o PostgreSQL é realizada por PDO.
+- As páginas protegidas utilizam verificação de sessão.
+- O logout encerra a sessão do usuário.
+- Os registros incluem informações relacionadas aos direitos das partituras.
+- O campo `visivel` indica a visibilidade do registro, mas não substitui a verificação dos direitos de disponibilização.
 
-### 9.5. Restaurar um backup SQL
+### 10.2 Recomendações
 
-A restauração deve ser feita com cuidado, preferencialmente em um banco vazio ou de teste.
+**Credenciais:** mantenha senhas fora do Git e não publique credenciais reais no README.
 
-Crie um banco de restauração, se ele ainda não existir:
+**Backups:** não publique dumps que contenham dados reais de usuários. Restrinja as permissões dos arquivos de backup e armazene cópias fora do diretório público do servidor.
 
-```bash
-sudo -u postgres createdb acervo_restauracao
-```
+**Acesso ao banco:** restrinja o acesso ao PostgreSQL e não exponha a porta 5432 à internet sem necessidade.
 
-Depois, restaure o arquivo:
+**Scripts:** examine os arquivos SQL antes de executá-los, especialmente em bancos com dados existentes.
 
-```bash
-sudo -u postgres psql -d acervo_restauracao -f /root/acervo_backup.sql
-```
+**Logs:** registre falhas e operações relevantes sem gravar senhas ou informações sensíveis.
 
-Esses comandos pressupõem que o arquivo exista e que a conta utilizada tenha as permissões necessárias.
+**Produção:** faça um backup antes de qualquer restauração e valide o procedimento em um banco de testes.
 
-Não restaure um backup diretamente sobre um banco com dados importantes sem criar uma cópia de segurança e verificar os possíveis conflitos.
+**Aplicação:** utilize consultas parametrizadas, valide os dados recebidos, proteja as páginas administrativas e verifique as permissões dos arquivos enviados.
 
-### 9.6. Cuidados com backups
+**Direitos autorais:** não disponibilize para download partituras cuja autorização de uso não esteja confirmada. A visibilidade de um registro não significa que o arquivo possa ser distribuído.
 
-- Mantenha cópias em locais separados do servidor original.
-- Proteja os arquivos com permissões adequadas.
-- Não publique backups contendo dados pessoais no GitHub.
-- Transfira os arquivos digitais necessários separadamente.
-- Teste a restauração periodicamente.
-- Mantenha o backup original fora do diretório público do servidor web.
+## 11. Rastreabilidade e evidências
 
-## 10. Direitos autorais
+| Informação | Fonte | Local |
+|---|---|---|
+| Backup com `pg_dump` | Procedimento de backup | Comando utilizado para gerar `acervo.sql` |
+| Dump SQL no repositório | GitHub | `mini-sistema-main/dump.sql` |
+| Estrutura das tabelas | Arquivo SQL | `mini-sistema-main/database/schema.sql` |
+| Criação do banco | Procedimento de instalação | `createdb acervo` |
+| Restauração com `psql` | Procedimento de restauração | Arquivo SQL selecionado |
+| Configuração da conexão | Código | `mini-sistema-main/database/connect.php` |
+| Carregamento das funções | Código | `mini-sistema-main/includes/functions.php` |
+| Cadastro de partituras | Código | `mini-sistema-main/app/create.php` |
+| Listagem de partituras | Código | `mini-sistema-main/app/select.php` |
+| Consulta por registro | Código | `mini-sistema-main/app/select_where.php` |
+| Atualização de partituras | Código | `mini-sistema-main/app/update.php` |
+| Exclusão de partituras | Código | `mini-sistema-main/app/delete.php` |
+| Autenticação | Código | `mini-sistema-main/login/login.php` |
+| Cadastro de usuários | Código | `mini-sistema-main/login/cadastrar.php` |
+| Encerramento de sessão | Código | `mini-sistema-main/login/logout.php` |
+| Proteção de páginas | Código | `mini-sistema-main/login/verifica_user.php` |
+| Arquivos enviados | Diretório | `mini-sistema-main/uploads/` |
+| Servidor web | Ambiente | Nginx |
+| Processamento PHP | Ambiente | PHP-FPM |
+| Banco de dados | Ambiente | PostgreSQL, banco `acervo` |
+| Implantação | Ambiente | `/var/www/html/acervo-sistema/mini-sistema-main/` |
+| Repositório | GitHub | `cauepasilva-art/acervo-partituras-brasileiras` |
+| Endereço de acesso informado | Ambiente | `http://192.168.10.15/acervo-partituras-brasileiras/mini-sistema-main/` |
 
-O registro de uma partitura deve incluir informações sobre sua procedência e situação dos direitos de uso, quando disponíveis.
 
-As situações previstas pelo sistema incluem:
-
-- `pendente`
-- `dominio_publico`
-- `licenca_autorizada`
-- `restrito`
-- `desconhecido`
-
-A existência de um arquivo digital não significa que ele possa ser disponibilizado publicamente. A publicação e o download devem respeitar a legislação, as licenças e as autorizações aplicáveis.
-
-## 11. Segurança
-
-Para manter a aplicação mais segura, recomenda-se:
-
-- Utilizar consultas parametrizadas com PDO.
-- Armazenar senhas dos usuários usando mecanismos apropriados de hash.
-- Validar os dados recebidos no servidor.
-- Restringir o acesso às páginas administrativas.
-- Validar o tipo e o tamanho dos arquivos enviados.
-- Proteger os downloads de acordo com as permissões e os direitos de uso.
-- Não versionar senhas, credenciais, backups ou dados privados.
-- Manter PHP, PostgreSQL e Nginx atualizados.
-- Permitir apenas o tráfego de rede necessário.
-- Evitar expor serviços administrativos e o banco de dados à internet.
-
-## 12. Execução em ambiente de desenvolvimento
-
-Para testes locais, a aplicação pode ser executada com o servidor embutido do PHP, a partir do diretório que contém o arquivo `index.php`:
-
-```bash
-php -S localhost:8000
-```
-
-Depois, abra no mesmo computador:
-
-```text
-http://localhost:8000
-```
-
-Esse servidor é destinado a desenvolvimento e testes. Para a implantação atual, o acesso é feito pelo Nginx.
-
-## 13. Melhorias futuras
-
-Algumas melhorias que podem ser consideradas:
-
-- Testes automatizados.
-- Paginação e filtros adicionais no catálogo.
-- Gestão mais detalhada de permissões.
-- Armazenamento privado e controle de downloads.
-- Testes periódicos de restauração dos backups.
-- Documentação de manutenção do servidor.
-- Configuração de endereço local estável para facilitar o acesso.
-
-## 14. Licença
+## 12. Licença
 
 A licença de distribuição do código e as condições de uso dos materiais musicais devem ser definidas pelo responsável pelo projeto.
 
 A licença do software não substitui as autorizações necessárias para distribuir partituras protegidas por direitos autorais.
 
-## 15. Autor e repositório
+## 13. Autor e repositório
 
 **Projeto:** Acervo Digital de Partituras Brasileiras
 
