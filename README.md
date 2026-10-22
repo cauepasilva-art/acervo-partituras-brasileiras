@@ -72,43 +72,49 @@ O arquivo `database/connect.php` estabelece a conexão com o PostgreSQL, enquant
 
 ## 1.4 Arquitetura geral
 
-```text
-Navegador
-   |
-   v
-Nginx
-   |
-   v
-PHP-FPM
-   |
-   v
-Páginas PHP
-   |
-   +---- login/
-   |
-   +---- app/
-   |
-   +---- includes/functions.php
-                |
-                v
-       database/connect.php
-                |
-                v
-          PostgreSQL
-           /       \
-          v         v
-     usuarios   partituras
+
+```mermaid
+flowchart TD
+    A["Navegador"] --> B["Nginx"]
+    B --> C["PHP-FPM"]
+    C --> D["Páginas PHP"]
+    D --> E["login/"]
+    D --> F["app/"]
+    D --> G["includes/functions.php"]
+    E --> G
+    F --> G
+    G --> H["database/connect.php"]
+    H --> I[("PostgreSQL")]
+    I --> J[("usuarios")]
+    I --> K[("partituras")]
 ```
 
 ## 1.5 Modelo de dados
 
-O banco de dados utiliza as tabelas `usuarios` e `partituras`.
 
-A tabela `usuarios` armazena identificador, e-mail, hash da senha e data de criação.
+```mermaid
+erDiagram
+    USUARIOS ||--o{ PARTITURAS : cria
 
-A tabela `partituras` armazena metadados musicais, informações sobre os arquivos, situação dos direitos autorais e datas de criação e atualização. O campo `criado_por` referencia o usuário responsável pelo cadastro.
+    USUARIOS {
+        bigint id PK
+        varchar email UK
+        varchar senha_hash
+        timestamptz criado_em
+    }
 
-O modelo utiliza chaves primárias, restrições de unicidade, chave estrangeira e índices para apoiar a integridade e as consultas.
+    PARTITURAS {
+        bigint id PK
+        varchar titulo
+        varchar compositor
+        varchar situacao_direitos
+        boolean visivel
+        bigint criado_por FK
+        timestamptz criado_em
+        timestamptz atualizado_em
+    }
+```
+
 
 # 2. Levantamento de requisitos
 
@@ -165,11 +171,31 @@ As páginas protegidas verificam a existência de uma sessão válida por meio d
 
 ## 3.2 Autenticação e gerenciamento de partituras
 
-O usuário acessa a aplicação pelo navegador. O Nginx encaminha as requisições PHP ao PHP-FPM, que executa os arquivos da aplicação.
 
-As operações administrativas são realizadas pelas páginas do diretório `app/`. Os dados são enviados às funções de negócio, que acessam o PostgreSQL por meio da conexão PDO.
+```mermaid
+flowchart TD
+    A["Acessar o sistema"] --> B{"Está autenticado?"}
+    B -- "Não" --> C["login/login.php"]
+    C --> D["Validar credenciais"]
+    D --> E{"Login válido?"}
+    E -- "Não" --> C
+    E -- "Sim" --> F["Acessar gerenciamento"]
+    B -- "Sim" --> F
+    F --> G{"Selecionar operação"}
+    G --> H["Cadastrar partitura"]
+    G --> I["Consultar partituras"]
+    G --> J["Atualizar partitura"]
+    G --> K["Excluir partitura"]
+    H --> L["Funções PHP"]
+    I --> L
+    J --> L
+    K --> L
+    L --> M["Conexão PDO"]
+    M --> N[("PostgreSQL")]
+    N --> O["Retornar resultado"]
+    O --> P["Exibir mensagem ao usuário"]
+```
 
-O fluxo principal compreende cadastro, consulta, atualização e exclusão de partituras, além do gerenciamento das informações relacionadas aos direitos autorais e à procedência.
 
 ## 3.3 Backup
 
@@ -312,47 +338,28 @@ Anote a data da restauração, a origem do dump, a versão do PostgreSQL (`psql 
 
 # 5. Fluxograma da restauração
 
-```text
-Início
-  |
-  v
-Verificar pré-requisitos
-  |
-  v
-Instalar e iniciar os serviços
-  |
-  v
-Obter os arquivos do projeto
-  |
-  v
-Conferir o dump SQL
-  |
-  v
-Verificar o usuário e o banco
-  |
-  v
-Fazer backup prévio, se houver dados
-  |
-  v
-Selecionar o banco de destino apropriado
-  |
-  v
-Restaurar com psql, se aplicável
-  |
-  v
-Conferir tabelas e registros
-  |
-  v
-Configurar database/connect.php
-  |
-  v
-Validar a aplicação web
-  |
-  v
-Registrar evidências
-  |
-  v
-Fim
+
+```mermaid
+flowchart TD
+    A(["Início"]) --> B["Verificar pré-requisitos"]
+    B --> C["Instalar e iniciar serviços"]
+    C --> D["Obter arquivos do projeto"]
+    D --> E["Conferir o dump SQL"]
+    E --> F{"Arquivo correto?"}
+    F -- "Não" --> G["Localizar o backup correto"]
+    G --> E
+    F -- "Sim" --> H["Verificar banco de destino"]
+    H --> I["Preservar dados existentes"]
+    I --> J["Preparar banco para restauração"]
+    J --> K["Restaurar com psql"]
+    K --> L["Conferir tabelas e registros"]
+    L --> M["Configurar conexão PDO"]
+    M --> N["Validar aplicação web"]
+    N --> O{"Testes aprovados?"}
+    O -- "Não" --> P["Investigar e corrigir erros"]
+    P --> N
+    O -- "Sim" --> Q["Registrar evidências"]
+    Q --> R(["Fim"])
 ```
 
 # 6. Dependências e pré-requisitos
